@@ -1,11 +1,14 @@
 {
   "name": "@brittonhayes/homeassistant-ts",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "description": "A Home Assistant REST API typescript client.",
-  "main": "dist/index.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "repository": "git@github.com:brittonhayes/homeassistant-ts.git",
   "publishConfig": {
     "access": "public"
   },
+  "license": "MIT",
   "scripts": {
     "test": "jest",
     "start": "ts-node src/index.ts",
@@ -29,7 +32,6 @@
     "node-fetch": "2"
   },
   "devDependencies": {
-    "@types/dotenv": "^8.2.0",
     "@types/node": "^18.0.3",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
@@ -45,5 +47,8 @@
     "typedoc": "^0.23.21",
     "typedoc-plugin-markdown": "^3.14.0",
     "typescript": "^4.7.4"
-  }
+  },
+  "files": [
+    "lib/**/*"
+  ]
 }
