@@ -1,6 +1,6 @@
 {
   "name": "@brittonhayes/homeassistant-ts",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "description": "A Home Assistant REST API typescript client.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
