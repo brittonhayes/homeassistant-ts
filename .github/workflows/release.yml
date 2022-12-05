@@ -32,7 +32,6 @@ jobs:
           node-version: '14.x'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@brittonhayes'
-      - run: npm run addscope
       - name: Publish to GitHub Packages
         run: npm publish
         env:
