@@ -1,9 +1,11 @@
 {
   "name": "@brittonhayes/homeassistant-ts",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "A Home Assistant REST API typescript client.",
   "main": "dist/index.js",
-  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "test": "jest",
     "start": "ts-node src/index.ts",
