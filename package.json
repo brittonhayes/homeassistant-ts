@@ -4,6 +4,9 @@
   "description": "A Home Assistant REST API typescript client.",
   "main": "dist/index.js",
   "private": false,
+  "publishConfig": {
+    "@brittonhayes:registry": "https://npm.pkg.github.com"
+  },
   "scripts": {
     "test": "jest",
     "start": "ts-node src/index.ts",
