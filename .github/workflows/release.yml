@@ -33,8 +33,7 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           scope: '@brittonhayes'
       - name: Publish to GitHub Packages
-        env:
-          HUSKY: 0
         run: npm publish
         env:
+          HUSKY: 0
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
