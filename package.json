@@ -13,7 +13,7 @@
     "build": "tsc",
     "generate": "openapi-typescript ./openapi.yaml --output ./src/homeassistant/schema.ts && prettier --write ./src/homeassistant/schema.ts",
     "format": "prettier --write src/**/*.ts",
-    "prepare": "husky install"
+    "prepare": "npx husky install"
   },
   "keywords": [
     "homeassistant",
