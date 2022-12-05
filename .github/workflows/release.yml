@@ -33,8 +33,6 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           scope: '@brittonhayes'
       - name: Publish to GitHub Packages
-        run: |
-          npm set-script prepare ""
-          npm publish
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
