@@ -32,8 +32,11 @@ jobs:
           node-version: '14.x'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@brittonhayes'
+      
       - name: Publish to GitHub Packages
-        run: npm publish
+        run: |
+          npm ci --omit=dev --ignore-scripts
+          npm publish
         env:
           HUSKY: 0
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
