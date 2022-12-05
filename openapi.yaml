@@ -1,0 +1,413 @@
+openapi: "3.0.2"
+info:
+  title: "Home Assistant"
+  version: "1.0.0"
+  description: "RESTful API for Home Assistant"
+  contact:
+    name: "brittonhayes"
+    url: "https://github.com/brittonhayes/homeassistant-ts"
+servers:
+  - url: "http://localhost:8123/api"
+    description: "Home Assistant"
+security:
+  - bearerAuth: []
+paths:
+  /api/:
+    get:
+      summary: "Returns a message if the API is up and running."
+      description: "Returns a message if the API is up and running."
+      responses:
+        "200":
+          description: "Successful response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Message"
+  /api/config:
+    get:
+      summary: "Returns the configuration of the Home Assistant instance."
+      description: "Returns the configuration of the Home Assistant instance."
+      responses:
+        "200":
+          description: "Successful response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Config"
+  /api/events:
+    get:
+      summary: "Returns an array of event objects. Each event object contains event name and listener count."
+      description: "Returns an array of event objects. Each event object contains event name and listener count."
+      responses:
+        "200":
+          description: "Successful response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Events"
+  /api/services:
+    get:
+      summary: "Returns an array of service objects. Each service object contains domain, service name, and description."
+      description: "Returns an array of service objects. Each service object contains domain, service name, and description."
+      responses:
+        "200":
+          description: "Successful response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Services"
+  /api/logbook:
+    get: 
+      summary: "Returns an array of logbook objects."
+      description: "Returns an array of logbook objects."
+      responses:
+        "200":
+          description: "Successful response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Logs"
+
+  /api/logbook/{timestamp}:
+    get:
+      summary: "Returns an array of logbook entries."
+      description: "Returns an array of logbook entries."
+      parameters:
+        - in: path
+          name: timestamp
+          required: true
+          schema:
+            type: string
+          description: "Timestamp in ISO 8601 format"
+      responses:
+        "200":
+          description: "Successful response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Logs"
+  /api/states:
+    get:
+      summary: "Returns an array of state objects. Each state object contains entity ID, state, and attributes."
+      description: "Returns an array of state objects. Each state object contains entity ID, state, and attributes."
+      responses:
+        "200":
+          description: "Successful response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/States"
+  /api/states/{entity_id}:
+    get:
+      summary: "Returns a state object for the specified entity ID."
+      description: "Returns a state object for the specified entity ID."
+      parameters:
+        - in: path
+          name: entity_id
+          schema:
+            type: string
+          required: true
+          description: "Entity ID"
+      responses:
+        "200":
+          description: "Successful response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/State"
+        "404":
+          description: "Entity not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Message"
+  /api/error_log:
+    get:
+      summary: "Returns an array of error logs in a plaintext response."
+      description: "Returns an array of error logs in a plaintext response."
+      responses:
+        "200":
+          description: "Successful response"
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/calendars:
+    get:
+      summary: "Returns an array of calendar objects. Each calendar object contains calendar name, and entity ID."
+      description: "Returns an array of calendar objects. Each calendar object contains calendar name, and entity ID."
+      responses:
+        "200":
+          description: "Successful response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CalendarEntities"
+  /api/calendars/{entity_id}:
+    get:
+      summary: "Returns an array of calendar event objects for the specified entity ID."
+      description: "Returns an array of calendar event objects for the specified entity ID."
+      parameters:
+        - in: path
+          name: entity_id
+          schema:
+            type: string
+          required: true
+          description: "Entity ID"
+      responses:
+        "200":
+          description: "Successful response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CalendarEvents"
+        "404":
+          description: "Entity not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Message"
+  /api/template:
+    post:
+      summary: "Render a Home Assistant template."
+      description: "Render a Home Assistant template."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Template"
+      responses:
+        "200":
+          description: "Successful response"
+          content:
+            text/plain:
+              schema:
+                type: string
+        "400":
+          description: "Bad request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Message"
+    
+components:
+  schemas:
+    Message:
+      type: object
+      properties:
+        message:
+          type: string
+          description: "The message returned by the API."
+    Config:
+      type: object
+      properties:
+        components:
+          type: array
+          description: "The components that are enabled in the Home Assistant instance."
+          items:
+            type: string
+        config_dir:
+          type: string
+          description: "The directory where the Home Assistant configuration is stored."
+        elevation:
+          type: integer
+          description: "The elevation of the Home Assistant instance."
+        latitude:
+          type: number
+          description: "The latitude of the Home Assistant instance."
+        location_name:
+          type: string
+          description: "The location name of the Home Assistant instance."
+        longitude:
+          type: number
+          description: "The longitude of the Home Assistant instance."
+        time_zone:
+          type: string
+          description: "The time zone of the Home Assistant instance."
+        unit_system:
+          type: object
+          description: "The unit system of the Home Assistant instance."
+          properties:
+            length:
+              type: string
+              description: "The length unit of the Home Assistant instance."
+            mass:
+              type: string
+              description: "The mass unit of the Home Assistant instance."
+            pressure:
+              type: string
+              description: "The pressure unit of the Home Assistant instance."
+            temperature:
+              type: string
+              description: "The temperature unit of the Home Assistant instance."
+            volume:
+              type: string
+              description: "The volume unit of the Home Assistant instance."
+        version:
+          type: string
+          description: "The version of the Home Assistant instance."
+        whitelist_external_dirs:
+          type: array
+          description: "The external directories that are whitelisted in the Home Assistant instance."
+          items:
+            type: string
+    Events:
+      type: array
+      description: "An array of event objects. Each event object contains event name and listener count."
+      items:
+        $ref: "#/components/schemas/Event"
+    Event:
+      type: object
+      properties:
+        event:
+          type: string
+          description: "The type of the event."
+        listener_count:
+          type: object
+          description: "The data of the event."
+    Services:
+      type: array
+      description: "An array of service objects. Each service object contains domain, service name, and description."
+      items:
+        $ref: "#/components/schemas/Service"
+    Service:
+      type: object
+      properties:
+        domain:
+          type: string
+          description: "The domain of the service."
+        services:
+          type: array
+          description: "The names of the services."
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: "The name of the service."
+              description:
+                type: string
+                description: "The description of the service."
+              fields:
+                type: object
+                description: "The fields of the service."
+              target:
+                type: object
+                description: "The target of the service."
+    State:
+      type: object
+      properties:
+        attributes:
+          type: object
+          description: "The attributes of the state."
+        entity_id:
+          type: string
+          description: "The entity ID of the state."
+        last_changed:
+          type: string
+          description: "The last changed time of the state."
+        last_updated:
+          type: string
+          description: "The last updated time of the state."
+        state:
+          type: string
+          description: "The state of the state."
+    States:
+      type: array
+      description: "An array of state objects. Each state object contains entity ID, state, attributes, and last changed time."
+      items:
+        $ref: "#/components/schemas/State"
+    CalendarEntities:
+      type: array
+      description: "An array of calendar objects. Each calendar object contains calendar name, and entity ID."
+      items:
+        $ref: "#/components/schemas/CalendarEntity"
+    CalendarEntity:
+      type: object
+      properties:
+        calendar:
+          type: string
+          description: "The name of the calendar."
+        entity_id:
+          type: string
+          description: "The entity ID of the calendar."
+    CalendarEvents:
+      type: array
+      description: "An array of calendar event objects. Each calendar event object contains event name, start time, end time, and location."
+      items:
+        oneOf:
+          - $ref: "#/components/schemas/CalendarEvent"
+    CalendarEvent:
+      type: object
+      properties:
+        summary:
+          type: string
+          description: "The summary of the calendar event."
+        description:
+          type: string
+          description: "The description of the calendar event."
+        location:
+          type: string
+          description: "The location of the calendar event."
+        start:
+          oneOf:
+            - type: object
+              properties:
+                dateTime:
+                  type: string
+                  format: date-time
+                  description: "The start date/time of the calendar event."
+            - type: object
+              properties:
+                date:
+                  type: string
+                  format: date
+                  description: "The start date of the calendar event."
+        end:
+          oneOf:
+            - type: object
+              properties:
+                dateTime:
+                  type: string
+                  format: date-time
+                  description: "The start date/time of the calendar event."
+            - type: object
+              properties:
+                date:
+                  type: string
+                  format: date
+                  description: "The start date of the calendar event."
+    Template:
+      type: object
+      properties:
+        template:
+          type: string
+          description: "The template to render."
+    Logs:
+      type: array
+      description: "An array of log objects. Each log object contains log level, timestamp, source, and message."
+      items:
+        $ref: "#/components/schemas/Log"
+    Log:
+      type: object
+      properties:
+        context_user_id:
+          type: string
+          description: "The user id context of the log"
+        domain:
+          type: string
+          description: "The domain of the log."
+        entity_id:
+          type: string
+          description: "The entity id of the log."
+        message:
+          type: string
+          description: "The message of the log."
+        name:
+          type: string
+          description: "The name of the log."
+        when:
+          format: date-time
+          type: string
+          description: "The timestamp of the log."
