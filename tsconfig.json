@@ -15,10 +15,8 @@
   },
   "typedocOptions": {
     "entryPoints": [
-      "src/homeassistant/index.ts"
+      "src/index.ts"
     ],
-    "readme": "none",
-    "plugin": "typedoc-plugin-markdown",
     "out": "docs"
   },
   "exclude": [
