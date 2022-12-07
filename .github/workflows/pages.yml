@@ -1,9 +1,7 @@
-name: CI
+name: Github Pages
 
 on:
   push:
-    branches: [main]
-  pull_request:
     branches: [main]
 
 permissions:
@@ -13,7 +11,7 @@ env:
   NODE_VERSION: 16.x
 
 jobs:
-  ci:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-node@v3
@@ -22,6 +20,11 @@ jobs:
       - uses: actions/checkout@v3
       - run: |
           npm ci
-          npm run typecheck
-          npm run lint
           npm run build
+          npm run docs
+
+      - name: Update documentation
+        uses: JamesIves/github-pages-deploy-action@v4.4.1
+        with:
+          branch: gh-pages
+          folder: docs
