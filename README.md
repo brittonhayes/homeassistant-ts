@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/brittonhayes/homeassistant-ts/actions/workflows/ci.yml/badge.svg)](https://github.com/brittonhayes/homeassistant-ts/actions/workflows/ci.yml)
 
-📚 [SDK Docs](https://github.com/brittonhayes/homeassistant-ts/tree/main/docs)
+📚 [SDK Docs](https://brittonhayes.github.io/homeassistant-ts)
 
 📚 [OpenAPI 3.x Spec](https://github.com/brittonhayes/homeassistant-ts/tree/main/openapi.yaml)
 
