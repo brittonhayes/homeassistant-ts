@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: write
+
 env:
   NODE_VERSION: 16.x
 
@@ -21,6 +24,7 @@ jobs:
           npm ci
           npm run typecheck
           npm run lint
+          npm run build
 
       - name: Update documentation
         uses: JamesIves/github-pages-deploy-action@v4.4.1
