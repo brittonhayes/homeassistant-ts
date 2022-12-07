@@ -49,7 +49,7 @@ console.log(logs);
 Retrieve all calendar events from a calendar
 
 ```ts
-const calendar = await ha.calendars.get('calendar.calendar_name');
+const calendar = await ha.calendars.retrieve('calendar.calendar_name');
 console.log(calendar);
 ```
 
