@@ -25,6 +25,7 @@
     "lib"
   ],
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "mocks"
   ]
 }
